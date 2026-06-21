@@ -113,21 +113,21 @@ counters.forEach(counter => {
   countObserver.observe(counter);
 });
 
-// ── Contact form ────────────────────────────────────
+// ── Contact form — Formspree submission ─────────────
 const contactForm = document.getElementById('contactForm');
+const submitBtn   = document.getElementById('submitBtn');
+const formNote    = document.getElementById('formNote');
 
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const btn = contactForm.querySelector('button[type="submit"]');
   const name    = document.getElementById('name').value.trim();
   const email   = document.getElementById('email').value.trim();
   const subject = document.getElementById('subject').value.trim();
   const message = document.getElementById('message').value.trim();
 
-  // Basic validation
   if (!name || !email || !subject || !message) {
-    showToast('Please fill in all fields.', 'error');
+    showToast('Please fill in all required fields.', 'error');
     return;
   }
 
@@ -136,16 +136,30 @@ contactForm.addEventListener('submit', async (e) => {
     return;
   }
 
-  btn.textContent = 'Sending…';
-  btn.disabled    = true;
+  submitBtn.textContent = 'Sending…';
+  submitBtn.disabled    = true;
 
-  // Simulate sending (replace with fetch/EmailJS/Formspree)
-  await new Promise(r => setTimeout(r, 1200));
+  try {
+    const response = await fetch(contactForm.action, {
+      method:  'POST',
+      headers: { 'Accept': 'application/json' },
+      body:    new FormData(contactForm),
+    });
 
-  showToast(`Thank you, ${name}! We'll be in touch soon.`, 'success');
-  contactForm.reset();
-  btn.textContent = 'Send Message';
-  btn.disabled    = false;
+    if (response.ok) {
+      showToast(`Thank you, ${name}! We'll be in touch soon.`, 'success');
+      contactForm.reset();
+      formNote.textContent = '✓ Message sent successfully!';
+      formNote.style.color = '#4ade80';
+    } else {
+      showToast('Submission failed. Please email us directly.', 'error');
+    }
+  } catch (err) {
+    showToast('Network error. Please email us directly.', 'error');
+  }
+
+  submitBtn.textContent = 'Send Message';
+  submitBtn.disabled    = false;
 });
 
 function isValidEmail(email) {

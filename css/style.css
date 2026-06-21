@@ -632,34 +632,38 @@ address {
 .form-group label {
   font-size: 13px;
   font-weight: 600;
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.75);
   letter-spacing: .5px;
   text-transform: uppercase;
 }
 
 .form-group input,
 .form-group textarea {
-  background: rgba(255,255,255,.06);
-  border: 1.5px solid rgba(255,255,255,.1);
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
   border-radius: 7px;
   padding: 13px 16px;
-  color: var(--white);
+  color: #111827;
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
   transition: var(--transition);
   outline: none;
   resize: vertical;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: text;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(255,255,255,.25);
+  color: #9ca3af;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--orange);
-  background: rgba(255,107,0,.05);
+  box-shadow: 0 0 0 3px rgba(255,107,0,.15);
 }
 
 .form-note {

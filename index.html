@@ -281,6 +281,14 @@
           </div>
 
           <div class="contact-item">
+            <span class="contact-icon">&#128222;</span>
+            <div>
+              <strong>Phone</strong>
+              <a href="tel:+919091982865">+91 90919 82865</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
             <span class="contact-icon">&#127760;</span>
             <div>
               <strong>Website</strong>
@@ -301,16 +309,20 @@
           </div>
         </div>
 
-        <form class="contact-form" id="contactForm" novalidate>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mursalin@nexvoltautomation.com" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Rahul Sharma" required>
+              <input type="text" id="name" name="name" placeholder="Rahul Sharma" required autocomplete="name">
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="rahul@company.com" required>
+              <input type="email" id="email" name="email" placeholder="rahul@company.com" required autocomplete="email">
             </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>
@@ -320,8 +332,8 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" placeholder="Tell us about your project requirements..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-          <p class="form-note">We'll get back to you within one business day.</p>
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Send Message</button>
+          <p class="form-note" id="formNote">We'll get back to you within one business day.</p>
         </form>
 
       </div>
@@ -361,6 +373,7 @@
       <div class="footer-contact">
         <h4>Contact</h4>
         <p><a href="mailto:mursalin@nexvoltautomation.com">mursalin@nexvoltautomation.com</a></p>
+        <p><a href="tel:+919091982865">+91 90919 82865</a></p>
         <p>28/A Rafi Ahmed Kidwai Road,<br>2nd Floor, Kolkata – 700016</p>
       </div>
     </div>
