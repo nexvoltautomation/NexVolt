@@ -9,14 +9,21 @@
   <meta property="og:description" content="We Automate. You Elevate. Industrial Automation & Energy Management Experts.">
   <meta property="og:image" content="assets/nexvolt-logo.png">
   <title>NexVolt Automation LLP – We Automate. You Elevate.</title>
+
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
   <meta name="theme-color" content="#ff6b00">
-  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -70,19 +77,19 @@
   <section class="stats-band">
     <div class="container stats-grid">
       <div class="stat-item">
-        <span class="stat-number">10<span class="stat-plus">+</span></span>
+        <span class="stat-number" data-target="10">10<span class="stat-plus">+</span></span>
         <span class="stat-label">Years Experience</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">200<span class="stat-plus">+</span></span>
+        <span class="stat-number" data-target="200">200<span class="stat-plus">+</span></span>
         <span class="stat-label">Projects Delivered</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">50<span class="stat-plus">+</span></span>
+        <span class="stat-number" data-target="50">50<span class="stat-plus">+</span></span>
         <span class="stat-label">Enterprise Clients</span>
       </div>
       <div class="stat-item">
-        <span class="stat-number">99<span class="stat-plus">%</span></span>
+        <span class="stat-number" data-target="99">99<span class="stat-plus">%</span></span>
         <span class="stat-label">Client Satisfaction</span>
       </div>
     </div>
@@ -96,28 +103,15 @@
         <h2>About NexVolt Automation</h2>
         <p>Empowering industries through intelligent automation</p>
       </div>
-
       <div class="about-grid">
         <div class="about-visual">
           <img src="assets/nexvolt-logo.png" alt="NexVolt Automation LLP">
-          <div class="about-badge">
-            <span>Est. 2015</span>
-          </div>
+          <div class="about-badge">Est. 2015</div>
         </div>
-
         <div class="about-text">
           <h3>Engineering Excellence at Its Core</h3>
-          <p>
-            NexVolt Automation LLP is a specialized engineering firm providing end-to-end
-            Industrial Automation, Energy Management Systems (EMS), SCADA Integration,
-            Power Monitoring Expert (PME), EcoStruxure Power Operation (EPO),
-            Modbus RTU/TCP Integration and Electrical Engineering Solutions.
-          </p>
-          <p>
-            We help industries achieve digital transformation, energy efficiency and
-            reliable operations using advanced automation technologies — from concept
-            to commissioning and beyond.
-          </p>
+          <p>NexVolt Automation LLP is a specialized engineering firm providing end-to-end Industrial Automation, Energy Management Systems (EMS), SCADA Integration, Power Monitoring Expert (PME), EcoStruxure Power Operation (EPO), Modbus RTU/TCP Integration and Electrical Engineering Solutions.</p>
+          <p>We help industries achieve digital transformation, energy efficiency and reliable operations using advanced automation technologies — from concept to commissioning and beyond.</p>
           <ul class="about-highlights">
             <li><span class="check">&#10003;</span> Schneider Electric Certified Partner</li>
             <li><span class="check">&#10003;</span> End-to-end project execution</li>
@@ -138,7 +132,6 @@
         <h2>Our Services</h2>
         <p>Comprehensive Automation &amp; Energy Solutions</p>
       </div>
-
       <div class="service-grid">
 
         <div class="card">
@@ -236,7 +229,6 @@
         <h2>The NexVolt Advantage</h2>
         <p>Built on expertise, trust and technology</p>
       </div>
-
       <div class="why-grid">
         <div class="why-item">
           <div class="why-number">01</div>
@@ -277,18 +269,18 @@
           <h3>NexVolt Automation LLP</h3>
 
           <div class="contact-item">
-            <span class="contact-icon">&#128231;</span>
-            <div>
-              <strong>Email</strong>
-              <a href="mailto:mursalin@nexvoltautomation.com">mursalin@nexvoltautomation.com</a>
-            </div>
-          </div>
-
-          <div class="contact-item">
             <span class="contact-icon">&#128222;</span>
             <div>
               <strong>Phone</strong>
               <a href="tel:+919091982865">+91 90919 82865</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon">&#128231;</span>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:nexvoltautomation@gmail.com">nexvoltautomation@gmail.com</a>
             </div>
           </div>
 
@@ -313,15 +305,16 @@
           </div>
         </div>
 
-        <form class="contact-form" id="contactForm" action="https://formspree.io/f/mursalin@nexvoltautomation.com" method="POST">
+        <!-- Contact Form — powered by EmailJS -->
+        <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Rahul Sharma" required autocomplete="name">
+              <label for="from_name">Your Name *</label>
+              <input type="text" id="from_name" name="from_name" placeholder="Rahul Sharma" required autocomplete="name">
             </div>
             <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="rahul@company.com" required autocomplete="email">
+              <label for="from_email">Email Address *</label>
+              <input type="email" id="from_email" name="from_email" placeholder="rahul@company.com" required autocomplete="email">
             </div>
           </div>
           <div class="form-group">
@@ -329,14 +322,17 @@
             <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
+            <label for="subject">Subject *</label>
             <input type="text" id="subject" name="subject" placeholder="SCADA Integration Project" required>
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">Message *</label>
             <textarea id="message" name="message" rows="5" placeholder="Tell us about your project requirements..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Send Message</button>
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            <span id="btnText">Send Message</span>
+            <span id="btnSpinner" style="display:none;">Sending…</span>
+          </button>
           <p class="form-note" id="formNote">We'll get back to you within one business day.</p>
         </form>
 
@@ -351,7 +347,6 @@
         <img src="assets/nexvolt-logo.png" alt="NexVolt Automation LLP">
         <p>We Automate. You Elevate.</p>
       </div>
-
       <div class="footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -361,7 +356,6 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-
       <div class="footer-services">
         <h4>Services</h4>
         <ul>
@@ -373,15 +367,13 @@
           <li>AMC Support</li>
         </ul>
       </div>
-
       <div class="footer-contact">
         <h4>Contact</h4>
-        <p><a href="mailto:mursalin@nexvoltautomation.com">mursalin@nexvoltautomation.com</a></p>
         <p><a href="tel:+919091982865">+91 90919 82865</a></p>
+        <p><a href="mailto:nexvoltautomation@gmail.com">nexvoltautomation@gmail.com</a></p>
         <p>28/A Rafi Ahmed Kidwai Road,<br>2nd Floor, Kolkata – 700016</p>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p>&copy; 2026 NexVolt Automation LLP. All rights reserved.</p>
     </div>
