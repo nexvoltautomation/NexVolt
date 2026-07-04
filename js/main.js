@@ -1,10 +1,33 @@
 /* ===================================================
    NexVolt Automation LLP — Main JavaScript
-   =================================================== */
+   ===================================================
+
+   EMAILJS SETUP (one-time, 5 minutes):
+   1. Go to https://www.emailjs.com → Sign up FREE
+   2. Add a Service: Gmail → connect nexvoltautomation@gmail.com → copy SERVICE_ID
+   3. Create a Template with these variables:
+        From:    {{from_name}} <{{from_email}}>
+        Subject: {{subject}}
+        Body:    Name: {{from_name}}
+                 Email: {{from_email}}
+                 Phone: {{phone}}
+                 Subject: {{subject}}
+                 Message: {{message}}
+      → copy TEMPLATE_ID
+   4. Go to Account → copy PUBLIC_KEY
+   5. Replace the three values below with your actual IDs.
+*/
+
+const EMAILJS_PUBLIC_KEY  = 'FXm2KZnugjqetUVxM';
+const EMAILJS_SERVICE_ID  = 'service_p928siw';
+const EMAILJS_TEMPLATE_ID = 'template_8wjkg05';
 
 'use strict';
 
-// ── Hamburger menu ─────────────────────────────────
+// ── Init EmailJS ────────────────────────────────────
+emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+// ── Hamburger menu ──────────────────────────────────
 const hamburger = document.getElementById('hamburger');
 const nav       = document.querySelector('nav');
 const navLinks  = document.querySelectorAll('.nav-links a');
@@ -16,7 +39,6 @@ hamburger.addEventListener('click', () => {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Close nav on link click
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
     nav.classList.remove('open');
@@ -26,7 +48,7 @@ navLinks.forEach(link => {
   });
 });
 
-// ── Sticky header shadow ────────────────────────────
+// ── Sticky header ───────────────────────────────────
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 40);
@@ -34,25 +56,19 @@ window.addEventListener('scroll', () => {
 
 // ── Active nav link on scroll ───────────────────────
 const sections = document.querySelectorAll('section[id]');
-
-const observer = new IntersectionObserver(entries => {
+const sectionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       navLinks.forEach(link => {
-        link.classList.toggle(
-          'active',
-          link.getAttribute('href') === `#${entry.target.id}`
-        );
+        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
       });
     }
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => sectionObserver.observe(s));
 
-sections.forEach(s => observer.observe(s));
-
-// ── Scroll-reveal cards ─────────────────────────────
+// ── Scroll-reveal ───────────────────────────────────
 const revealEls = document.querySelectorAll('.card, .why-item, .stat-item, .about-text, .about-visual');
-
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -63,103 +79,88 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 revealEls.forEach((el, i) => {
-  el.style.opacity    = '0';
-  el.style.transform  = 'translateY(24px)';
+  el.style.opacity   = '0';
+  el.style.transform = 'translateY(24px)';
   el.style.transition = `opacity .6s ease ${i * 0.07}s, transform .6s ease ${i * 0.07}s`;
   revealObserver.observe(el);
 });
 
-document.addEventListener('animationend', () => {});
-
-// revealed class applied by observer
-const style = document.createElement('style');
-style.textContent = '.revealed { opacity: 1 !important; transform: none !important; }';
-document.head.appendChild(style);
-
 // ── Counter animation ───────────────────────────────
 const counters = document.querySelectorAll('.stat-number');
-
 const countObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
-    const el      = entry.target;
-    const plus    = el.querySelector('.stat-plus');
-    const suffix  = plus ? plus.textContent : '';
-    const target  = parseInt(el.dataset.target, 10);
-
+    const el     = entry.target;
+    const target = parseInt(el.dataset.target, 10);
+    const plus   = el.querySelector('.stat-plus');
     if (isNaN(target)) return;
 
-    let start     = 0;
-    const step    = target / 60;
-    const timer   = setInterval(() => {
-      start += step;
-      if (start >= target) {
-        start = target;
-        clearInterval(timer);
-      }
-      el.textContent = Math.floor(start) + suffix;
+    let current = 0;
+    const step  = target / 60;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.childNodes[0].nodeValue = Math.floor(current);
     }, 25);
-
     countObserver.unobserve(el);
   });
 }, { threshold: 0.5 });
+counters.forEach(c => countObserver.observe(c));
 
-// Store target values
-counters.forEach(counter => {
-  const plus   = counter.querySelector('.stat-plus');
-  const text   = counter.textContent.replace(/[^0-9]/g, '');
-  counter.dataset.target = text;
-  if (plus) counter.appendChild(plus); // Re-append stripped plus
-  countObserver.observe(counter);
-});
-
-// ── Contact form — Formspree submission ─────────────
+// ── Contact form — EmailJS ──────────────────────────
 const contactForm = document.getElementById('contactForm');
 const submitBtn   = document.getElementById('submitBtn');
+const btnText     = document.getElementById('btnText');
+const btnSpinner  = document.getElementById('btnSpinner');
 const formNote    = document.getElementById('formNote');
 
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const name    = document.getElementById('name').value.trim();
-  const email   = document.getElementById('email').value.trim();
-  const subject = document.getElementById('subject').value.trim();
-  const message = document.getElementById('message').value.trim();
+  const from_name  = document.getElementById('from_name').value.trim();
+  const from_email = document.getElementById('from_email').value.trim();
+  const phone      = document.getElementById('phone').value.trim();
+  const subject    = document.getElementById('subject').value.trim();
+  const message    = document.getElementById('message').value.trim();
 
-  if (!name || !email || !subject || !message) {
-    showToast('Please fill in all required fields.', 'error');
+  // Validation
+  if (!from_name || !from_email || !subject || !message) {
+    showToast('Please fill in all required fields (*).', 'error');
     return;
   }
-
-  if (!isValidEmail(email)) {
+  if (!isValidEmail(from_email)) {
     showToast('Please enter a valid email address.', 'error');
     return;
   }
 
-  submitBtn.textContent = 'Sending…';
-  submitBtn.disabled    = true;
+  // Loading state
+  btnText.style.display    = 'none';
+  btnSpinner.style.display = 'inline';
+  submitBtn.disabled       = true;
 
   try {
-    const response = await fetch(contactForm.action, {
-      method:  'POST',
-      headers: { 'Accept': 'application/json' },
-      body:    new FormData(contactForm),
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      from_name,
+      from_email,
+      phone:   phone || 'Not provided',
+      subject,
+      message,
+      to_email: 'nexvoltautomation@gmail.com',
     });
 
-    if (response.ok) {
-      showToast(`Thank you, ${name}! We'll be in touch soon.`, 'success');
-      contactForm.reset();
-      formNote.textContent = '✓ Message sent successfully!';
-      formNote.style.color = '#4ade80';
-    } else {
-      showToast('Submission failed. Please email us directly.', 'error');
-    }
+    showToast(`Thank you, ${from_name}! We'll be in touch soon.`, 'success');
+    contactForm.reset();
+    formNote.textContent = '✓ Message sent successfully!';
+    formNote.style.color = '#4ade80';
+
   } catch (err) {
-    showToast('Network error. Please email us directly.', 'error');
+    console.error('EmailJS error:', err);
+    showToast('Could not send message. Please call or email us directly.', 'error');
   }
 
-  submitBtn.textContent = 'Send Message';
-  submitBtn.disabled    = false;
+  btnText.style.display    = 'inline';
+  btnSpinner.style.display = 'none';
+  submitBtn.disabled       = false;
 });
 
 function isValidEmail(email) {
@@ -168,11 +169,11 @@ function isValidEmail(email) {
 
 // ── Toast notification ──────────────────────────────
 function showToast(message, type = 'success') {
-  const existing = document.querySelector('.toast');
+  const existing = document.querySelector('.nv-toast');
   if (existing) existing.remove();
 
   const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
+  toast.className = 'nv-toast';
   toast.textContent = message;
   toast.setAttribute('role', 'alert');
 
@@ -187,16 +188,16 @@ function showToast(message, type = 'success') {
     fontFamily:   'Montserrat, sans-serif',
     fontWeight:   '600',
     fontSize:     '14px',
-    boxShadow:    '0 8px 24px rgba(0,0,0,.2)',
+    boxShadow:    '0 8px 24px rgba(0,0,0,.25)',
     zIndex:       '9999',
     opacity:      '0',
     transform:    'translateY(12px)',
     transition:   'opacity .3s, transform .3s',
     maxWidth:     '340px',
+    lineHeight:   '1.5',
   });
 
   document.body.appendChild(toast);
-
   requestAnimationFrame(() => {
     toast.style.opacity   = '1';
     toast.style.transform = 'translateY(0)';
@@ -206,5 +207,5 @@ function showToast(message, type = 'success') {
     toast.style.opacity   = '0';
     toast.style.transform = 'translateY(12px)';
     setTimeout(() => toast.remove(), 300);
-  }, 4000);
+  }, 5000);
 }
