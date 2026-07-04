@@ -140,12 +140,14 @@ contactForm.addEventListener('submit', async (e) => {
 
   try {
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      from_name,
-      from_email,
-      phone:   phone || 'Not provided',
+      from_name: from_name,
+      name:      from_name,
+      from_email: from_email,
+      email:     from_email,
+      phone:     phone || 'Not provided',
       subject,
       message,
-      to_email: 'nexvoltautomation@gmail.com',
+      to_email:  'nexvoltautomation@gmail.com',
     });
 
     showToast(`Thank you, ${from_name}! We'll be in touch soon.`, 'success');
