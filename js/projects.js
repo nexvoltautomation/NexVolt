@@ -179,6 +179,20 @@
     return `<svg style="width:15px;height:15px;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
   }
 
+  // ── Get Google Docs Viewer URL for online preview ────
+  // Works for: pptx, xlsx, docx, pdf
+  // Requires the file to be publicly accessible on the live website
+  function getViewUrl(filePath, fileType) {
+    if (fileType === 'pdf') {
+      // PDF: open directly in browser new tab
+      return filePath;
+    }
+    // PPTX / XLSX / DOCX: use Google Docs Viewer
+    // Google needs the FULL public URL of the file
+    const fullUrl = window.location.origin + '/' + filePath;
+    return 'https://docs.google.com/viewer?url=' + encodeURIComponent(fullUrl) + '&embedded=false';
+  }
+
   // ── Create one project card ───────────────────────────
   function createCard(project) {
     const meta  = FILE_META[project.fileType] || FILE_META.pdf;
@@ -220,15 +234,15 @@
         </div>
 
         <div class="proj-actions">
-          <a href="${project.file}"
+          <a href="${getViewUrl(project.file, project.fileType)}"
              target="_blank"
-             rel="noopener"
+             rel="noopener noreferrer"
              class="proj-btn proj-btn-view"
              aria-label="View ${meta.label}: ${project.name}">
             ${viewIcon()} View ${meta.label}
           </a>
           <a href="${project.file}"
-             download
+             download="${project.file.split('/').pop()}"
              class="proj-btn proj-btn-download"
              aria-label="Download ${meta.label}: ${project.name}">
             ${dlIcon()} Download
