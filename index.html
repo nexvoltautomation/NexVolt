@@ -45,6 +45,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#why-us">Why Us</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -53,10 +54,91 @@
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
+  <!-- ===== HERO — IMAGE SLIDER =====
+       SLIDE 1: Office image — shows full hero content (logo, heading, tagline, buttons)
+       SLIDES 2+: Plant images — shows only plant name label on image
+
+       HOW TO ADD MORE SLIDES:
+       - For a full-content slide (like slide 1): add data-type="full"
+       - For a plant/image-only slide: add data-type="plant" and data-label="Your Plant Name"
+  -->
   <section class="hero" id="home">
+
+    <!-- ── SLIDER TRACK ── -->
+    <div class="hero-slider" aria-hidden="true">
+
+      <!-- SLIDE 1 — Office (full hero content shown) -->
+      <div class="hero-slide active"
+           data-type="full"
+           data-src="assets/slider/office.jpg"
+           style="background-image:url('assets/slider/office.jpg')"></div>
+
+      <!-- SLIDE 2 — Boiler Plant -->
+      <div class="hero-slide"
+           data-type="plant"
+           data-label="Boiler Plant"
+           data-src="assets/slider/boiler.jpg"
+           style="background-image:url('assets/slider/boiler.jpg')"></div>
+
+      <!-- SLIDE 3 — Air Compressor Plant -->
+      <div class="hero-slide"
+           data-type="plant"
+           data-label="Air Compressor Plant"
+           data-src="assets/slider/air_compressor.jpg"
+           style="background-image:url('assets/slider/air_compressor.jpg')"></div>
+
+      <!-- SLIDE 4 — Nitrogen Plant -->
+      <div class="hero-slide"
+           data-type="plant"
+           data-label="Nitrogen Plant"
+           data-src="assets/slider/nitrogen.jpg"
+           style="background-image:url('assets/slider/nitrogen.jpg')"></div>
+
+      <!-- SLIDE 5 — Chiller Plant -->
+      <div class="hero-slide"
+           data-type="plant"
+           data-label="Chiller Plant"
+           data-src="assets/slider/chiller.jpg"
+           style="background-image:url('assets/slider/chiller.jpg')"></div>
+
+      <!-- SLIDE 6 — Data Center -->
+      <div class="hero-slide"
+           data-type="plant"
+           data-label="Data Center"
+           data-src="assets/slider/datacenter.jpg"
+           style="background-image:url('assets/slider/datacenter.jpg')"></div>
+
+      <!--
+        ADD FUTURE SLIDES HERE:
+
+        Full content slide (like office):
+        <div class="hero-slide" data-type="full"
+             data-src="assets/slider/yourimage.jpg"
+             style="background-image:url('assets/slider/yourimage.jpg')"></div>
+
+        Plant name only slide:
+        <div class="hero-slide" data-type="plant" data-label="Your Plant Name"
+             data-src="assets/slider/yourimage.jpg"
+             style="background-image:url('assets/slider/yourimage.jpg')"></div>
+      -->
+    </div>
+    <!-- ── END SLIDER TRACK ── -->
+
+    <!-- Dark overlay -->
     <div class="hero-overlay"></div>
-    <div class="hero-content container">
+
+    <!-- Slider controls -->
+    <button class="hero-slider-btn hero-slider-prev" aria-label="Previous slide">&#8249;</button>
+    <button class="hero-slider-btn hero-slider-next" aria-label="Next slide">&#8250;</button>
+    <div class="hero-slider-dots" role="tablist" aria-label="Slide navigation"></div>
+
+    <!-- Plant name label — shown only on plant slides (JS toggles this) -->
+    <div class="hero-plant-label" id="heroPlantLabel" style="display:none;">
+      <span class="hero-plant-name" id="heroPlantName"></span>
+    </div>
+
+    <!-- ── HERO CONTENT — shown only on slide 1 (full type) ── -->
+    <div class="hero-content container" id="heroContent">
       <img src="assets/nexvolt-logo.png" alt="NexVolt Automation" class="hero-logo animate-fade-up">
       <h1 class="animate-fade-up delay-1">Industrial Automation &amp;<br>Energy Management Experts</h1>
       <p class="hero-tagline animate-fade-up delay-2">
@@ -68,6 +150,7 @@
         <a href="#contact" class="btn btn-outline">Contact Us</a>
       </div>
     </div>
+
     <div class="hero-scroll-indicator">
       <span></span>
     </div>
@@ -115,7 +198,7 @@
           <ul class="about-highlights">
             <li><span class="check">&#10003;</span> Schneider Electric Certified Partner</li>
             <li><span class="check">&#10003;</span> End-to-end project execution</li>
-            <li><span class="check">&#10003;</span> 24/7 AMC & technical support</li>
+            <li><span class="check">&#10003;</span> Preventive & Breakdown Maintenance Support</li>
             <li><span class="check">&#10003;</span> Pan-India project capability</li>
           </ul>
           <a href="#contact" class="btn btn-primary">Work With Us</a>
@@ -213,7 +296,7 @@
             </svg>
           </div>
           <h3>AMC &amp; Support</h3>
-          <p>Annual Maintenance Contracts, commissioning assistance and round-the-clock technical support services.</p>
+          <p>Preventive and breakdown maintenance contracts, commissioning assistance and dedicated technical support services.</p>
           <a href="#contact" class="card-link">Learn more &rarr;</a>
         </div>
 
@@ -253,6 +336,61 @@
       </div>
     </div>
   </section>
+
+  <!-- ===== PROJECTS & DOWNLOADS =====
+       FEATURE 3, 4, 5, 6, 7
+       To add a new project:
+         1. Copy image  → assets/project-images/projectN.jpg
+         2. Copy PDF    → assets/projects/ProjectName.pdf
+         3. Add one object to the PROJECTS array in js/projects.js
+         That's it. No HTML changes needed.
+  -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+
+      <div class="section-title">
+        <span class="eyebrow">Our Work</span>
+        <h2>Projects &amp; Downloads</h2>
+        <p>Real-world implementations across industries</p>
+      </div>
+
+      <!-- FEATURE 4: Search box -->
+      <div class="projects-search-wrap">
+        <div class="projects-search-inner">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input
+            type="search"
+            id="projectSearch"
+            class="projects-search"
+            placeholder="Search by technology: PME, SCADA, EMS, Modbus…"
+            aria-label="Search projects"
+          >
+        </div>
+      </div>
+
+      <!-- FEATURE 5: Category filters -->
+      <div class="projects-filters" role="group" aria-label="Filter projects by category">
+        <!-- Filter buttons are generated automatically by JS from the project data -->
+        <!-- You do NOT need to edit this div manually -->
+      </div>
+
+      <!-- Project grid — rendered by JS from projects.js -->
+      <div class="projects-grid" id="projectsGrid"></div>
+
+      <!-- Empty state -->
+      <div class="projects-empty" id="projectsEmpty" style="display:none;">
+        <p>No projects found matching your search.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURE 6: Lightbox overlay -->
+  <div class="proj-lightbox" id="projLightbox" role="dialog" aria-modal="true" aria-label="Project image viewer">
+    <button class="proj-lightbox-close" id="projLightboxClose" aria-label="Close image viewer">&times;</button>
+    <img class="proj-lightbox-img" id="projLightboxImg" src="" alt="">
+    <p class="proj-lightbox-caption" id="projLightboxCaption"></p>
+  </div>
 
   <!-- ===== CONTACT ===== -->
   <section class="contact" id="contact">
@@ -364,7 +502,7 @@
           <li>PME &amp; EPO</li>
           <li>Power Monitoring</li>
           <li>Modbus Integration</li>
-          <li>AMC Support</li>
+          <li>Preventive &amp; Breakdown Support</li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -380,5 +518,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/slider.js"></script>
+  <script src="js/projects.js"></script>
 </body>
 </html>
