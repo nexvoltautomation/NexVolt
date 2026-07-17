@@ -1,14 +1,15 @@
-PROJECT PDF FILES
-=================
-Place your project PDFs here.
+PROJECT FILES
+=============
+Place your project PDFs and Excel files here.
 
-Current PDFs linked in js/projects.js:
-  PME_Project.pdf
-  EMS_Project.pdf
-  SCADA_Project.pdf
-  PowerOperation.pdf
-  DataCenter.pdf
+Required files (linked in js/projects.js):
+  PME_Implementation.pdf
+  EMS_Dashboard.pdf
+  SCADA_Integration.pdf
+  Power_Operation.pdf
+  Data_Center.pdf
+  EMS_Daily_Report.xlsx
 
-To add a new PDF:
-  1. Copy your PDF here
-  2. Add a new project object in js/projects.js
+To add a new project:
+  1. Add your PDF here
+  2. Add one project object in js/projects.js
