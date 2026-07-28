@@ -4,7 +4,7 @@
 
    EMAILJS SETUP (one-time, 5 minutes):
    1. Go to https://www.emailjs.com → Sign up FREE
-   2. Add a Service: Gmail → connect nexvoltautomation@gmail.com → copy SERVICE_ID
+   2. Add a Service: Gmail → connect mursalin@nexvoltautomation.com → copy SERVICE_ID
    3. Create a Template with these variables:
         From:    {{from_name}} <{{from_email}}>
         Subject: {{subject}}
@@ -147,7 +147,7 @@ contactForm.addEventListener('submit', async (e) => {
       phone:     phone || 'Not provided',
       subject,
       message,
-      to_email:  'nexvoltautomation@gmail.com',
+      to_email:  'mursalin@nexvoltautomation.com',
     });
 
     showToast(`Thank you, ${from_name}! We'll be in touch soon.`, 'success');
