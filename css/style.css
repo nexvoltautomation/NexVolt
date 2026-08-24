@@ -939,18 +939,44 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;op
 @media(max-width:768px){#header{background:rgba(5,7,10,.56)!important}.navbar .nav-cta{display:inline-block!important;font-size:9px!important;padding:9px 13px!important}.navbar{gap:10px}.logo img{height:44px}}
 
 /* =========================================================
-   INVISIBLE POWERX HOTSPOT — fixed bottom-right, never moves
+   POWERX FOOTER ACCESS — transparent until hovered
+   Stays in normal footer flow; never fixed/sticky.
    ========================================================= */
-.nv-drive-float{
-  position:fixed!important;right:24px!important;bottom:24px!important;left:auto!important;top:auto!important;
-  z-index:11000!important;width:72px!important;height:72px!important;min-width:0!important;min-height:0!important;
-  margin:0!important;padding:0!important;border:0!important;border-radius:0!important;outline:0!important;
-  background:transparent!important;color:transparent!important;box-shadow:none!important;opacity:0!important;
-  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;cursor:pointer;
-  appearance:none;-webkit-appearance:none;transition:none!important;
+.nv-powerx-footer{
+  display:inline-block!important;
+  margin-left:18px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  color:transparent!important;
+  font-family:inherit!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:2.6px!important;
+  line-height:1!important;
+  vertical-align:middle!important;
+  cursor:pointer!important;
+  opacity:1!important;
+  box-shadow:none!important;
+  outline:none!important;
+  transition:color .12s ease, text-shadow .12s ease!important;
+  -webkit-appearance:none!important;
+  appearance:none!important;
 }
-.nv-drive-float:hover,.nv-drive-float:active,.nv-drive-float:focus,.nv-drive-float:focus-visible{opacity:0!important;background:transparent!important;box-shadow:none!important;outline:0!important;transform:none!important}
-@media(max-width:768px){.nv-drive-float{right:18px!important;bottom:18px!important;width:64px!important;height:64px!important}}
+.nv-powerx-footer:hover,
+.nv-powerx-footer:focus,
+.nv-powerx-footer:focus-visible,
+.nv-powerx-footer:active{
+  color:#ff6b00!important;
+  text-shadow:0 0 12px rgba(255,107,0,.22)!important;
+}
+@media(max-width:768px){
+  .nv-powerx-footer{
+    margin-left:10px!important;
+    font-size:9px!important;
+    letter-spacing:2.2px!important;
+  }
+}
 
 /* PowerX modal */
 .nv-drive-modal{position:fixed;inset:0;z-index:12000;display:grid;place-items:center;padding:22px;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
@@ -1166,4 +1192,28 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;op
   .about .section-title{margin-top:95px !important}
   .about .section-title h2{font-size:38px !important}
   .about .section-title p{font-size:16px !important}
+}
+
+/* =========================================================
+   MOBILE HEADER — MENU BUTTON ON FAR LEFT
+   ========================================================= */
+@media (max-width: 768px){
+  .navbar{
+    justify-content:flex-start!important;
+    gap:10px!important;
+  }
+  .navbar .menu-trigger{
+    order:0!important;
+    flex:0 0 44px!important;
+    margin:0!important;
+  }
+  .navbar .logo{
+    order:1!important;
+    margin:0!important;
+    flex:0 0 150px!important;
+  }
+  .navbar .nav-cta{
+    order:2!important;
+    margin-left:auto!important;
+  }
 }
