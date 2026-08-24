@@ -35,24 +35,110 @@
         <img src="assets/nexvolt-logo1.png" alt="NexVolt Automation LLP">
       </a>
 
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button class="menu-trigger" id="menuTrigger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
 
-      <nav>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#why-us">Why Us</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-
-      <a href="#contact" class="btn btn-primary nav-cta">Get a Quote</a>
+      <a href="#contact" class="btn btn-primary nav-cta">CONTACT US</a>
     </div>
   </header>
+
+  <!-- ===== FULL-SCREEN MENU / REFERENCE STYLE ===== -->
+  <div class="nv-menu" id="nvMenu" aria-hidden="true">
+    <div class="nv-menu-backdrop" id="nvMenuBackdrop"></div>
+    <aside class="nv-menu-panel" role="dialog" aria-modal="true" aria-label="Main menu">
+      <button class="nv-menu-close" id="nvMenuClose" aria-label="Close menu">×</button>
+      <div class="nv-menu-brand">
+        <img src="assets/nexvolt-logo1.png" alt="NexVolt Automation LLP">
+      </div>
+      <div class="nv-menu-kicker">NEXVOLT / NAVIGATION</div>
+      <ul class="nv-menu-links" id="navLinks">
+        <li><a href="#home">Home <span>01</span></a></li>
+        <li><a href="#about">About Us <span>02</span></a></li>
+        <li><a href="#services">Services <span>03</span></a></li>
+        <li><a href="#why-us">Why Us <span>04</span></a></li>
+        <li><a href="#projects">Projects <span>05</span></a></li>
+        <li><a href="#contact">Contact Us <span>06</span></a></li>
+      </ul>
+      <div class="nv-menu-footer">
+        <span>INDUSTRIAL AUTOMATION</span>
+        <span>ENERGY MANAGEMENT</span>
+        <span>SCADA / PME / EPO</span>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ===== FLOATING INQUIRY + SEND MESSAGE MODAL ===== -->
+  <!-- ===== POWERX SECURE DRIVE ACCESS ===== -->
+  <button class="nv-drive-float" id="driveAccessTrigger" type="button" aria-label="Open PowerX Drive Access">
+    <span class="nv-drive-float-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 4.5h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.5"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </span>
+    <span><strong>POWERX</strong><small>DRIVE ACCESS</small></span>
+  </button>
+
+  <div class="nv-drive-modal" id="driveAccessModal" aria-hidden="true">
+    <div class="nv-drive-backdrop" id="driveAccessBackdrop"></div>
+    <div class="nv-drive-card" role="dialog" aria-modal="true" aria-labelledby="driveTitle" tabindex="-1">
+      <button class="nv-drive-close" id="driveAccessClose" type="button" aria-label="Close Drive Access">×</button>
+      <div class="nv-drive-kicker">NEXVOLT AUTOMATION / POWERX</div>
+      <h2 id="driveTitle">DRIVE ACCESS</h2>
+      <p class="nv-drive-subtitle" id="driveSubtitle">Enter your PowerX password to access the project drive.</p>
+
+      <form id="driveLoginForm" class="nv-drive-form">
+        <label>Password<input id="drivePassword" type="password" autocomplete="current-password" required placeholder="Enter password"></label>
+        <button type="submit" class="btn btn-primary btn-full">ACCESS DRIVE</button>
+        <p class="nv-drive-status" id="driveLoginStatus" aria-live="polite"></p>
+        <button type="button" class="nv-drive-forgot" id="driveForgotBtn">Forgot password?</button>
+      </form>
+
+      <form id="driveChangeForm" class="nv-drive-form" hidden>
+        <label>Old Password<input id="driveOldPassword" type="password" autocomplete="current-password" required placeholder="Enter old password"></label>
+        <label>New Password<input id="driveNewPassword" type="password" autocomplete="new-password" minlength="4" required placeholder="Enter new password"></label>
+        <label>Confirm New Password<input id="driveConfirmPassword" type="password" autocomplete="new-password" minlength="4" required placeholder="Confirm new password"></label>
+        <button type="submit" class="btn btn-primary btn-full">CHANGE PASSWORD</button>
+        <p class="nv-drive-status" id="driveChangeStatus" aria-live="polite"></p>
+        <button type="button" class="nv-drive-forgot" id="driveBackLogin">Back to login</button>
+      </form>
+
+      <div class="nv-drive-list" id="driveList" hidden>
+        <p class="nv-drive-access-note">Access granted. Select a drive to continue.</p>
+        <div class="nv-drive-grid">
+          <a class="nv-drive-box" href="https://drive.google.com/drive/folders/1-CnBU2qVFy9lTZ_Nhp7GFGIPEZyiCtDZ?usp=sharing" target="_blank" rel="noopener noreferrer"><span>01</span><strong>Drive 1</strong><small>OPEN GOOGLE DRIVE</small></a>
+          <a class="nv-drive-box" href="https://drive.google.com/drive/folders/1-CnBU2qVFy9lTZ_Nhp7GFGIPEZyiCtDZ?usp=sharing" target="_blank" rel="noopener noreferrer"><span>02</span><strong>Drive 2</strong><small>OPEN GOOGLE DRIVE</small></a>
+          <a class="nv-drive-box" href="https://drive.google.com/drive/folders/1-CnBU2qVFy9lTZ_Nhp7GFGIPEZyiCtDZ?usp=sharing" target="_blank" rel="noopener noreferrer"><span>03</span><strong>Drive 3</strong><small>OPEN GOOGLE DRIVE</small></a>
+          <a class="nv-drive-box" href="https://drive.google.com/drive/folders/1-CnBU2qVFy9lTZ_Nhp7GFGIPEZyiCtDZ?usp=sharing" target="_blank" rel="noopener noreferrer"><span>04</span><strong>Drive 4</strong><small>OPEN GOOGLE DRIVE</small></a>
+        </div>
+        <button type="button" class="nv-drive-lock" id="driveLockBtn">LOCK DRIVE ACCESS</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="nv-mail-float" id="inquiryTrigger" type="button" aria-label="Open inquiry form" aria-controls="contactModal" aria-expanded="false">
+    <span class="nv-mail-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </span>
+  </button>
+
+  <div class="nv-modal" id="contactModal" aria-hidden="true">
+    <div class="nv-modal-backdrop" data-contact-close></div>
+    <div class="nv-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalSubtitle" tabindex="-1">
+      <button class="nv-modal-close" data-contact-close aria-label="Close inquiry form">×</button>
+      <div class="nv-modal-kicker">NEXVOLT AUTOMATION / INQUIRY</div>
+      <h2 id="modalTitle">REGISTER YOUR INTEREST</h2>
+      <p class="nv-modal-subtitle" id="modalSubtitle">Tell us what you need. Our team will get back to you shortly.</p>
+      <form class="nv-quick-form" id="quickContactForm">
+        <div class="nv-form-grid">
+          <label>Full Name*<input id="quick_name" name="name" type="text" required placeholder="Full Name" autocomplete="name"></label>
+          <label>Email*<input id="quick_email" name="email" type="email" required placeholder="Email Address" autocomplete="email"></label>
+        </div>
+        <label>Country Code + Mobile Number*<input id="quick_phone" name="phone" type="tel" required placeholder="India (+91)  Mobile No" autocomplete="tel"></label>
+        <label>Write Your Message*<textarea id="quick_message" name="message" rows="5" required placeholder="Write your message..."></textarea></label>
+        <button type="submit" class="btn btn-primary nv-send-btn" id="quickSendBtn"><span id="quickSendText">SUBMIT</span><span id="quickSendSpinner" hidden>SENDING…</span></button>
+        <p class="nv-form-status" id="quickFormStatus" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
 
   <!-- ===== HERO — IMAGE SLIDER =====
        SLIDE 1: Office image — shows full hero content (logo, heading, tagline, buttons)
@@ -70,8 +156,8 @@
       <!-- SLIDE 1 — Office (full hero content shown) -->
       <div class="hero-slide active"
            data-type="full"
-           data-src="assets/slider/office.jpg"
-           style="background-image:url('assets/slider/office.jpg')"></div>
+           data-src="assets/slider/nexvolt-tech-hero.png"
+           style="background-image:url('assets/slider/nexvolt-tech-hero.png')"></div>
 
       <!-- SLIDE 2 — Boiler Plant -->
       <div class="hero-slide"
