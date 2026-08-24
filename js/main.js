@@ -41,60 +41,6 @@ const quickSendText = document.getElementById('quickSendText');
 const quickSendSpinner = document.getElementById('quickSendSpinner');
 const quickFormStatus = document.getElementById('quickFormStatus');
 
-const driveAccessTrigger = document.getElementById('driveAccessTrigger');
-const driveAccessModal = document.getElementById('driveAccessModal');
-const driveAccessClose = document.getElementById('driveAccessClose');
-const driveAccessBackdrop = document.getElementById('driveAccessBackdrop');
-const driveLoginForm = document.getElementById('driveLoginForm');
-const driveChangeForm = document.getElementById('driveChangeForm');
-const driveList = document.getElementById('driveList');
-const drivePassword = document.getElementById('drivePassword');
-const driveLoginStatus = document.getElementById('driveLoginStatus');
-const driveChangeStatus = document.getElementById('driveChangeStatus');
-const driveForgotBtn = document.getElementById('driveForgotBtn');
-const driveBackLogin = document.getElementById('driveBackLogin');
-const driveLockBtn = document.getElementById('driveLockBtn');
-
-// Browser-only access gate. Default password is PowerX.
-const DRIVE_PASSWORD_KEY = 'nexvolt_powerx_drive_password';
-const DEFAULT_DRIVE_PASSWORD = 'PowerX';
-function getDrivePassword(){ return localStorage.getItem(DRIVE_PASSWORD_KEY) || DEFAULT_DRIVE_PASSWORD; }
-function setDriveStatus(el, message, type=''){ el.textContent=message; el.className='nv-drive-status' + (type ? ' '+type : ''); }
-function resetDriveView(){
-  driveLoginForm.hidden=false; driveChangeForm.hidden=true; driveList.hidden=true;
-  driveLoginForm.reset(); driveChangeForm.reset();
-  setDriveStatus(driveLoginStatus,''); setDriveStatus(driveChangeStatus,'');
-}
-function openDriveAccess(){
-  if (contactModal.classList.contains('is-open')) closeContactModal(false);
-  resetDriveView(); driveAccessModal.classList.add('is-open'); driveAccessModal.setAttribute('aria-hidden','false'); lockPage();
-  setTimeout(()=>drivePassword.focus(),300);
-}
-function closeDriveAccess(){ driveAccessModal.classList.remove('is-open'); driveAccessModal.setAttribute('aria-hidden','true'); unlockPage(); }
-driveAccessTrigger.addEventListener('click',openDriveAccess);
-driveAccessClose.addEventListener('click',closeDriveAccess);
-driveAccessBackdrop.addEventListener('click',closeDriveAccess);
-driveForgotBtn.addEventListener('click',()=>{ driveLoginForm.hidden=true; driveChangeForm.hidden=false; setDriveStatus(driveChangeStatus,''); document.getElementById('driveOldPassword').focus(); });
-driveBackLogin.addEventListener('click',()=>{ resetDriveView(); drivePassword.focus(); });
-driveLockBtn.addEventListener('click',()=>{ resetDriveView(); drivePassword.focus(); });
-driveLoginForm.addEventListener('submit',e=>{
-  e.preventDefault();
-  if(drivePassword.value === getDrivePassword()){
-    driveLoginForm.hidden=true; driveChangeForm.hidden=true; driveList.hidden=false; setDriveStatus(driveLoginStatus,'');
-  } else { setDriveStatus(driveLoginStatus,'Incorrect password. Please try again.','error'); drivePassword.select(); }
-});
-driveChangeForm.addEventListener('submit',e=>{
-  e.preventDefault();
-  const oldPass=document.getElementById('driveOldPassword').value;
-  const newPass=document.getElementById('driveNewPassword').value;
-  const confirmPass=document.getElementById('driveConfirmPassword').value;
-  if(oldPass !== getDrivePassword()){ setDriveStatus(driveChangeStatus,'Old password is incorrect.','error'); return; }
-  if(newPass !== confirmPass){ setDriveStatus(driveChangeStatus,'New passwords do not match.','error'); return; }
-  localStorage.setItem(DRIVE_PASSWORD_KEY,newPass);
-  setDriveStatus(driveChangeStatus,'Password changed successfully.','success');
-  setTimeout(()=>{ resetDriveView(); drivePassword.focus(); },700);
-});
-
 let activeLayer = null;
 let lastMenuFocus = null;
 let lastModalFocus = null;
@@ -208,6 +154,33 @@ quickContactForm.addEventListener('submit', async (e) => {
     quickSendBtn.disabled=false; quickSendText.hidden=false; quickSendSpinner.hidden=true;
   }
 });
+
+
+// ── Invisible PowerX Drive Access ───────────────────
+const driveAccessTrigger=document.getElementById('driveAccessTrigger');
+const driveAccessModal=document.getElementById('driveAccessModal');
+const driveAccessClose=document.getElementById('driveAccessClose');
+const driveAccessBackdrop=document.getElementById('driveAccessBackdrop');
+const driveLoginForm=document.getElementById('driveLoginForm');
+const driveChangeForm=document.getElementById('driveChangeForm');
+const driveList=document.getElementById('driveList');
+const drivePassword=document.getElementById('drivePassword');
+const driveLoginStatus=document.getElementById('driveLoginStatus');
+const driveChangeStatus=document.getElementById('driveChangeStatus');
+const driveForgotBtn=document.getElementById('driveForgotBtn');
+const driveBackLogin=document.getElementById('driveBackLogin');
+const driveLockBtn=document.getElementById('driveLockBtn');
+const DRIVE_PASSWORD_KEY='nexvolt_powerx_drive_password',DEFAULT_DRIVE_PASSWORD='PowerX';
+function getDrivePassword(){return localStorage.getItem(DRIVE_PASSWORD_KEY)||DEFAULT_DRIVE_PASSWORD}
+function setDriveStatus(el,msg,type=''){el.textContent=msg;el.className='nv-drive-status'+(type?' '+type:'')}
+function resetDriveView(){driveLoginForm.hidden=false;driveChangeForm.hidden=true;driveList.hidden=true;driveLoginForm.reset();driveChangeForm.reset();setDriveStatus(driveLoginStatus,'');setDriveStatus(driveChangeStatus,'')}
+function openDriveAccess(){if(contactModal.classList.contains('is-open'))closeContactModal(false);if(nvMenu.classList.contains('is-open'))closeMenu(false);resetDriveView();driveAccessModal.classList.add('is-open');driveAccessModal.setAttribute('aria-hidden','false');activeLayer='drive';lockPage();setTimeout(()=>drivePassword.focus(),250)}
+function closeDriveAccess(){driveAccessModal.classList.remove('is-open');driveAccessModal.setAttribute('aria-hidden','true');if(activeLayer==='drive')activeLayer=null;unlockPage()}
+driveAccessTrigger.addEventListener('click',openDriveAccess);driveAccessClose.addEventListener('click',closeDriveAccess);driveAccessBackdrop.addEventListener('click',closeDriveAccess);
+driveForgotBtn.addEventListener('click',()=>{driveLoginForm.hidden=true;driveChangeForm.hidden=false;setDriveStatus(driveChangeStatus,'');document.getElementById('driveOldPassword').focus()});
+driveBackLogin.addEventListener('click',()=>{resetDriveView();drivePassword.focus()});driveLockBtn.addEventListener('click',()=>{resetDriveView();drivePassword.focus()});
+driveLoginForm.addEventListener('submit',e=>{e.preventDefault();if(drivePassword.value===getDrivePassword()){driveLoginForm.hidden=true;driveChangeForm.hidden=true;driveList.hidden=false;setDriveStatus(driveLoginStatus,'')}else{setDriveStatus(driveLoginStatus,'Incorrect password. Please try again.','error');drivePassword.select()}});
+driveChangeForm.addEventListener('submit',e=>{e.preventDefault();const oldP=document.getElementById('driveOldPassword').value,newP=document.getElementById('driveNewPassword').value,confirmP=document.getElementById('driveConfirmPassword').value;if(oldP!==getDrivePassword()){setDriveStatus(driveChangeStatus,'Old password is incorrect.','error');return}if(newP!==confirmP){setDriveStatus(driveChangeStatus,'New passwords do not match.','error');return}localStorage.setItem(DRIVE_PASSWORD_KEY,newP);setDriveStatus(driveChangeStatus,'Password changed successfully.','success');setTimeout(()=>{resetDriveView();drivePassword.focus()},700)});
 
 // ── Sticky header ───────────────────────────────────
 const header = document.getElementById('header');
